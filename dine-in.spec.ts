@@ -4,6 +4,7 @@ import { LandingPage } from "./pages/LandingPage";
 import { DineInPage } from "./pages/DineInPage";
 import { DrinksPage } from "./pages/DrinksPage";
 import { CartPage } from "./pages/CartPage";
+import { PaymentPage } from "./pages/PaymentPage";
 
 config.timeout = 60000;
 
@@ -39,18 +40,13 @@ it("flow: dine in", async ({ page }) => {
   await drinksPage.cartButton.click();
 
   // TODO should have the correct added drinks
-
-  
-  // should be able to checkout
   const cartPage = new CartPage(page);
+
+  // should be able to checkout
   await cartPage.checkout();
   expect(page.url()).toEqual('https://staging.mryum.com/demo/checkout/dine-in/cart');
 
-  await page.fill('input[aria-label="Please enter a phone number without the country dial code."]', '400000000');
-  await page.click('text="SEND SMS CODE"');
-  await page.fill('input[aria-label="Please enter your pin code"]', '3066');
-
-  await page.click('text="PAY NOW"');
-
-  await page.waitForTimeout(5000);
+  // should be able to pay
+  const paymentPage = new PaymentPage(page);
+  await paymentPage.pay('400000000', '3066');
 });
