@@ -1,11 +1,11 @@
 import { Page } from './Page';
 import { Component } from '../components/Component';
-import { OrderItem } from '../components/OrderItem';
+import { MenuItem } from '../components/MenuItem';
 
 export class DrinksPage extends Page {
   thanksButton: Component;
   cartButton: Component;
-  orderItems: Map<string, OrderItem>;
+  menuItems: Map<string, MenuItem>;
   
 
   constructor(page) {
@@ -14,14 +14,14 @@ export class DrinksPage extends Page {
     // TODO page components
     this.thanksButton = new Component(page, this, 'text="Thanks!"');
     this.cartButton = new Component(page, this, 'text="Cart"');
-    this.orderItems = new Map<string, OrderItem>();
+    this.menuItems = new Map<string, MenuItem>();
     [
       'Left Hand Negroni',
       'Latte',
       'House Rose',
       'Pinot Gri'
     ].forEach(title => {
-      this.orderItems.set(title, new OrderItem(page, this, title));
+      this.menuItems.set(title, new MenuItem(page, this, title));
     });
   }
 }

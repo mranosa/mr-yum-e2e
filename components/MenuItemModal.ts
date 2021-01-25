@@ -1,6 +1,6 @@
 import { Component } from './Component';
 
-export class OrderItemModal extends Component {
+export class MenuItemModal extends Component {
   addToCartButton: Component;
 
   constructor(page, parent) {

@@ -1,10 +1,10 @@
 import { Component } from './Component';
-import { OrderItemModal } from './OrderItemModal';
+import { MenuItemModal } from './MenuItemModal';
 
-export class OrderItem extends Component {
+export class MenuItem extends Component {
   addToCartButton: Component;
   titleLabel: Component;
-  orderItemModal: OrderItemModal;
+  menuItemModal: MenuItemModal;
 
   constructor(page, parent, title) {
     // TODO correct selector
@@ -12,14 +12,14 @@ export class OrderItem extends Component {
 
     this.addToCartButton = new Component(page, this, 'text="Add to cart"');
     this.titleLabel = new Component(page, this, `text="${title}"`);
-    this.orderItemModal = new OrderItemModal(page, this);
+    this.menuItemModal = new MenuItemModal(page, this);
   }
 
   async order(options = []) {
     return await Promise.all([
       await this.titleLabel.click(),
-      await this.orderItemModal.selectOptions(options),
-      this.orderItemModal.addToCartButton.click()
+      await this.menuItemModal.selectOptions(options),
+      this.menuItemModal.addToCartButton.click()
   ]);
   }
 }

@@ -31,16 +31,21 @@ it("flow: dine in", async ({ page }) => {
   await drinksPage.thanksButton.click();
 
   // should be able to add drinks to cart
-  await drinksPage.orderItems.get('Left Hand Negroni').order();
-  await drinksPage.orderItems.get('Latte').order(['Skim Milk', '1 Sugar', 'Sweet Potato Chips']);
-  await drinksPage.orderItems.get('House Rose').order();
-  await drinksPage.orderItems.get('Pinot Gri').order(['Bottle']);
+  await drinksPage.menuItems.get('Left Hand Negroni').order();
+  await drinksPage.menuItems.get('Latte').order(['Skim Milk', '1 Sugar', 'Sweet Potato Chips']);
+  await drinksPage.menuItems.get('House Rose').order();
+  await drinksPage.menuItems.get('Pinot Gri').order(['Bottle']);
 
   // should be able to go to checkout page
   await drinksPage.cartButton.click();
 
-  // TODO should have the correct added drinks
+  // TODO should have correct order details
   const cartPage = new CartPage(page);
+
+  // TODO assert table number
+  // TODO assert discount?
+  // TODO assert each item details
+  // TODO assert number of items
 
   // should be able to checkout
   await cartPage.checkout();
