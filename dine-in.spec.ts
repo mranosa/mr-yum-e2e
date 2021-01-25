@@ -29,24 +29,13 @@ it("flow: dine in", async ({ page }) => {
   await drinksPage.thanksButton.click();
 
   // should be able to add drinks to cart
-  await page.click('text="Left Hand Negroni"');
-  await page.click('text="Add to cart"');
-
-  await page.click('text="Latte"');
-  await page.click('text="Skim Milk"');
-  await page.click('text="1 Sugar"');
-  await page.click('text="Sweet Potato Chips"');
-  await page.click('text="Add to cart"');
-
-  await page.click('text="House Rose"');
-  await page.click('text="Add to cart"');
-  
-  await page.click('text="Pinot Gri"');
-  await page.click('text="Bottle"');
-  await page.click('text="Add to cart"');
+  await drinksPage.orderItems.get('Left Hand Negroni').order();
+  await drinksPage.orderItems.get('Latte').order(['Skim Milk', '1 Sugar', 'Sweet Potato Chips']);
+  await drinksPage.orderItems.get('House Rose').order();
+  await drinksPage.orderItems.get('Pinot Gri').order(['Bottle']);
 
   // should be able to go to checkout page
-  await drinksPage.thanksButton.click();
+  await drinksPage.cartButton.click();
 
   // TODO should have the correct added drinks
   
