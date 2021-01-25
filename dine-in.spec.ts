@@ -1,6 +1,8 @@
 import { it, expect } from "@playwright/test";
 import { config } from 'folio';
 import { LandingPage } from "./pages/LandingPage";
+import { DineInPage } from "./pages/DineInPage";
+import { DrinksPage } from "./pages/DrinksPage";
 
 config.timeout = 60000;
 
@@ -15,16 +17,16 @@ it("flow: dine in", async ({ page }) => {
   expect(page.url()).toEqual('https://staging.mryum.com/demo/dine-in');
 
   // should be able to add table number
-  await page.click('input[name="tableNumber"]');
-  await page.fill('input[name="tableNumber"]', '33');
-  await page.click('text="Confirm"');
+  const dineInPage = new DineInPage(page);
+  await dineInPage.tableNumberModal.setTableNumber('33');
 
   // should be able to go to drinks page
-  await page.click('text="Drinks 🍻"');
+  await dineInPage.drinksButton.click();
   expect(page.url()).toEqual('https://staging.mryum.com/demo/dine-in/drinks');
 
   // should be able to go close drinks page notification
-  await page.click('text="Thanks!"');
+  const drinksPage = new DrinksPage(page);
+  await drinksPage.thanksButton.click();
 
   // should be able to add drinks to cart
   await page.click('text="Left Hand Negroni"');
@@ -44,7 +46,7 @@ it("flow: dine in", async ({ page }) => {
   await page.click('text="Add to cart"');
 
   // should be able to go to checkout page
-  await page.click('text="Cart"');
+  await drinksPage.thanksButton.click();
 
   // TODO should have the correct added drinks
   
