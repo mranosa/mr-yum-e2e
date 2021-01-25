@@ -3,6 +3,7 @@ import { config } from 'folio';
 import { LandingPage } from "./pages/LandingPage";
 import { DineInPage } from "./pages/DineInPage";
 import { DrinksPage } from "./pages/DrinksPage";
+import { CartPage } from "./pages/CartPage";
 
 config.timeout = 60000;
 
@@ -38,10 +39,11 @@ it("flow: dine in", async ({ page }) => {
   await drinksPage.cartButton.click();
 
   // TODO should have the correct added drinks
+
   
   // should be able to checkout
-  await page.click('//div[normalize-space(.)=\'CHECKOUT FOR TABLE 33\']');
-  await page.click('text="Maybe next time"');
+  const cartPage = new CartPage(page);
+  await cartPage.checkout();
   expect(page.url()).toEqual('https://staging.mryum.com/demo/checkout/dine-in/cart');
 
   await page.fill('input[aria-label="Please enter a phone number without the country dial code."]', '400000000');
