@@ -1,15 +1,17 @@
 import { it, expect } from "@playwright/test";
 import { config } from 'folio';
+import { LandingPage } from "./pages/LandingPage";
 
 config.timeout = 60000;
 
 it("flow: dine in", async ({ page }) => {
   // should be able to load demo page
-  await page.goto('https://staging.mryum.com/demo');
+  const landingPage = new LandingPage(page);
+  await landingPage.visit();
   expect(page.url()).toEqual('https://staging.mryum.com/demo');
 
   // should be able to go to to dine in page
-  await page.click('text="Table Service"');
+  await landingPage.tableServiceButton.click();
   expect(page.url()).toEqual('https://staging.mryum.com/demo/dine-in');
 
   // should be able to add table number
