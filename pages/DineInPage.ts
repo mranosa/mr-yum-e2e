@@ -10,7 +10,7 @@ export class DineInPage extends Page {
     super(page, 'https://staging.mryum.com/demo/dine-in');
 
     // TODO page components
-    this.tableNumberModal = new TableNumberModal(page, this, 'div[role="dialog"]');
+    this.tableNumberModal = new TableNumberModal(page, this);
     this.drinksButton = new Component(page, this, 'text="Drinks 🍻"');
   }
 }
