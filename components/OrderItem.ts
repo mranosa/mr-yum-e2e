@@ -16,10 +16,10 @@ export class OrderItem extends Component {
   }
 
   async order(options = []) {
-    await this.titleLabel.click();
-
-    await this.orderItemModal.selectOptions(options);
-
-    return this.orderItemModal.addToCartButton.click();
+    return await Promise.all([
+      await this.titleLabel.click(),
+      await this.orderItemModal.selectOptions(options),
+      this.orderItemModal.addToCartButton.click()
+  ]);
   }
 }

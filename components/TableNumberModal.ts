@@ -12,7 +12,9 @@ export class TableNumberModal extends Component {
   }
 
   async setTableNumber(tableNumber) {
-    await this.tableNumberInputBox.fill(tableNumber);
-    return await this.tableNumberConfirmButton.click();
+    return await Promise.all([
+      await this.tableNumberInputBox.fill(tableNumber),
+      await this.tableNumberConfirmButton.click()
+    ]);
   }
 }
