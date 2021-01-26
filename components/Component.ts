@@ -10,6 +10,7 @@ export class Component {
   }
 
   async getElement() {
+    await this.page.waitForSelector(this.selector);
     return await this.page.$(this.selector);
   }
 
