@@ -1,13 +1,15 @@
 # Pre-Requisites
 - Node `v12.18.3`
 - npm `6.14.6`
+- Git
 
 # Installation
 ```sh
-npm i
+$ git clone git@github.com:mranosa/mr-yum-e2e.git
+$ npm i
 ```
  
 # Running Tests
 ```sh
-npx folio --param headful browserName=firefox slowMo=100
+$ npx folio --param headful browserName=firefox slowMo=100
 ```
