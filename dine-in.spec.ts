@@ -39,13 +39,42 @@ it("flow: dine in", async ({ page }) => {
   // should be able to go to checkout page
   await drinksPage.cartButton.click();
 
-  // TODO should have correct order details
+  // should have correct order details
   const cartPage = new CartPage(page);
+  
+  // assert table number
+  const tableNumberButton = await cartPage.tableNumberButton.getElement();
+  const tableNumberButtonText = await tableNumberButton.textContent();
+  expect(tableNumberButtonText.toLowerCase()).toContain('table number 33');
+  
+  // assert number of items
+  const cartItems = await cartPage.getCartItems();
+  expect(cartItems.length).toEqual(4);
 
-  // TODO assert table number
-  // TODO assert discount?
-  // TODO assert each item details
-  // TODO assert number of items
+  // assert each item details
+  for (const cartItem of cartItems) {
+    const textContent = await cartItem.textContent();
+    
+    if(textContent.indexOf('Latte') > -1) {
+      expect(textContent).toContain('$13.00');
+      expect(textContent).toContain('Skim Milk');
+      expect(textContent).toContain('1 Sugar');
+      expect(textContent).toContain('Sweet Potato Chips');
+    }
+
+    if(textContent.indexOf('Pinot Gri') > -1) {
+      expect(textContent).toContain('$24.00');
+      expect(textContent).toContain('Bottle');
+    }
+
+    if(textContent.indexOf('House Rose') > -1) {
+      expect(textContent).toContain('9.00');
+    }
+
+    if(textContent.indexOf('Left Hand Negroni') > -1) {
+      expect(textContent).toContain('$18.00');
+    }
+  }
 
   // should be able to checkout
   await cartPage.checkout();
