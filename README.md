@@ -6,6 +6,7 @@
 # Installation
 ```sh
 $ git clone git@github.com:mranosa/mr-yum-e2e.git
+$ cd mr-yum-e2e/
 $ npm i
 ```
  
